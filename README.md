@@ -1,4 +1,4 @@
-# practice2
+# Mobile App
 
 A new Flutter project.
 
