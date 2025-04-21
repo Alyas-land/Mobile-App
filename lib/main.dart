@@ -165,7 +165,7 @@ class _MyShopState extends State<MyShop> {
                 Container(
                   margin: EdgeInsets.fromLTRB(50, 20, 50, 1),
                   child: MaterialButton(
-                      padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
@@ -199,7 +199,7 @@ class _MyShopState extends State<MyShop> {
                       }),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  margin: EdgeInsets.fromLTRB(0, 50, 0, 50),
                   child: Center(child: Text(result,
                     style: TextStyle(
                       color: color,
