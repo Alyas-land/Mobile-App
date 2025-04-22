@@ -93,10 +93,22 @@ flutter:
     - family: Irancell
       fonts:
         - asset: assets/font/MTNIrancell-Light.ttf
-          weight: 400
-
-        - asset: assets/font/MTNIrancell-ExtraLight.ttf
           weight: 200
 
+        - asset: assets/font/MTNIrancell-ExtraLight.ttf
+          weight: 100
+
         - asset: assets/font/MTNIrancell-Bold.ttf
+          weight: 800
+
+        - asset: assets/font/irancell.ttf
+          weight: 500
+
+        - asset: assets/font/irancell-medium.ttf
+          weight: 600
+
+        - asset: assets/font/irancell-black.ttf
           weight: 700
+
+
+
