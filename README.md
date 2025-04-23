@@ -1,4 +1,4 @@
-![Alt text](images/example.png)
+![Alt text](readmeflutter.png)
 # Console Game Store (Flutter Practice Project)
 
 This is a basic Flutter application developed as a practice project.  
