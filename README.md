@@ -1,9 +1,9 @@
-![Alt text](readme-flutter.png)
+
 # Console Game Store (Flutter Practice Project)
 
 This is a basic Flutter application developed as a practice project.  
 The app is designed to function as an online store for console video games.
-
+![Alt text](readme-flutter.png)
 ## 📱 About the Project
 
 This project is intended for learning and practice purposes. It's a simple front-end mobile application built using **Flutter**, and it is planned to be connected to a backend service in the future.
