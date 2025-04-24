@@ -2,19 +2,69 @@ import 'package:flutter/material.dart';
 import 'widgets/staticWidgets/navigationBottom.dart';
 
 
+
 void main() {
   runApp(const MaterialApp(title: 'Navigation Basics', home: MyShop()));
 }
 
 class Product{
-  int? id;
-  String? name;
-  int? quantity;
+  int id;
+  String name;
+  String description;
+  int quantity;
+  String picPath;
   var price;
 
-  Product({this.id, this.name, this.quantity, this.price});
+  Product({required this.id,required this.name, required this.description, required this.quantity,required this.price, required this.picPath});
 
 }
+
+class Order{
+  String name;
+  int quantity;
+  String picPath;
+  var price;
+
+  Order({required this.name, required this.quantity, required this.price, required this.picPath});
+
+}
+
+final List<Product> products = [
+  Product(id: 1,
+      name: "Red Dead Redemption 2",
+      description: "کمتر کسی است که نام Rockstar Games را نشنیده باشد و آثار معروف و قوی این کمپانی قدرتمند را نشناسد. این سازنده‌ی خلاق، جایزه‌ی بهترین بازی سال را از مراسم مختلفی برای بازی‌های مختلف خود دریافت کرده است. یکی از مشهورترین سری بازی‌های Rockstar، سری Red Dead است که نسخه‌ی دوم آن، Read Dead Redemption در سال 2010 به عنوان بهترین بازی سال انتخاب شد.",
+      quantity: 20,
+      price: 4200000,
+      picPath: "assets/img/red-dead2.jpg"),
+
+  Product(id: 2,
+      name: "Cyberpunk 2077",
+      description: "بازی سایبرپانک ۲۰۷۷ در یک ابر شهر واقع در ایالات کارولینای شمالی دنبال می‌شود که توسط کمپانی‌های بزرگ اداره می‌شود اما قوانین حکومتی هم هنوز به طرز ضعیف‌تری بر مردم واقع است. اختلاف طبقاتی کاری کرده تا مردم شهر در قسمت‌های مختلف جا بگیرند که هرکدام ویژگی‌ها و فرهنگ خاص خودشان رادارند. بخشی از شهر با برج‌های چند صد طبقه پرشده که مردمانی ثروتمند با کت‌وشلوارهای شیک و ماشین‌های گران‌قیمت در آن‌ها زندگی می‌کنند. اما تمامی قسمت‌های شهر به این شکل نیست و انواع گروه‌های تبه‌کاران در قسمت‌های مختلف دیده می‌شوند که هرکدام با دیگری در جنگ و جدال عجیبی هستند. قشر فقیر زیادی در شهر زندگی می‌کنند که باعث افزایش میزان خشونت و تهدیدهای جدی از سوی گروه‌های خلاف‌کار شده است. اما شما از کجا وارد می‌شوید؟",
+      quantity: 20,
+      price: 4800000,
+      picPath: "assets/img/cyberpunk.jpg")
+];
+
+
+final List<Order> orders = [];
+
+String formatNumber(int number) {
+  final str = number.toString();
+  final buffer = StringBuffer();
+  int counter = 0;
+
+  for (int i = str.length - 1; i >= 0; i--) {
+    buffer.write(str[i]);
+    counter++;
+    if (counter % 3 == 0 && i != 0) {
+      buffer.write(',');
+    }
+  }
+
+  return buffer.toString().split('').reversed.join('');
+}
+
+
 class MyShop extends StatefulWidget {
   const MyShop({super.key});
 
@@ -244,6 +294,37 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
 
+  String formatNumber(int number) {
+    final str = number.toString();
+    final buffer = StringBuffer();
+    int counter = 0;
+
+    for (int i = str.length - 1; i >= 0; i--) {
+      buffer.write(str[i]);
+      counter++;
+      if (counter % 3 == 0 && i != 0) {
+        buffer.write(',');
+      }
+    }
+
+    return buffer.toString().split('').reversed.join('');
+  }
+
+  addProductToCard({required Product prdc}){
+    setState(() {
+      int index = orders.indexWhere((e) => e.name == prdc.name);
+      print("\n\n\n ${index} \n\n\n");
+      if (index != -1){
+        orders[index].quantity += 1;
+      }
+      else {
+        orders.add(
+            Order(name: prdc.name, quantity: 1, price: prdc.price, picPath: prdc.picPath)
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -281,159 +362,89 @@ class _ProductsPageState extends State<ProductsPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // first card
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF05121C),
-                  borderRadius: BorderRadius.circular(50),
-                  boxShadow: [
-                    BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 5),
-                  ],
-                ),
-                margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image.asset(
-                          "assets/img/red-dead2.jpg",
-                          width: 310,
-                          fit: BoxFit.cover,
+              for (var item in products)
+              // cards
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF05121C),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 5),
+                    ],
+                  ),
+                  margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image.asset(
+                            item.picPath,
+                            width: 310,
+                            fit: BoxFit.cover,
 
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Center(
-                        child: Text(
-                          "Red Dead Redemption 2",
-                          style: TextStyle(
-                            color: Color(0xFF81B5D3),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18,
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                      child: Text("کمتر کسی است که نام Rockstar Games را نشنیده باشد و آثار معروف و قوی این کمپانی قدرتمند را نشناسد. این سازنده‌ی خلاق، جایزه‌ی بهترین بازی سال را از مراسم مختلفی برای بازی‌های مختلف خود دریافت کرده است. یکی از مشهورترین سری بازی‌های Rockstar، سری Red Dead است که نسخه‌ی دوم آن، Read Dead Redemption در سال 2010 به عنوان بهترین بازی سال انتخاب شد.",
-                        textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          color: Color(0xFFF5F9FB),
-                          fontWeight: FontWeight.w300,
-                          fontSize: 12,
-                          height: 2.5
-
-                        ),),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Center(
-                        child: Text(
-                          "4,500,000 تومان",
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Color(0xFF00FF42)),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF0C2D48),
-                        ),
-                        onPressed: () {
-                          // افزودن به سبد خرید
-                        },
-                        icon: Icon(Icons.add_shopping_cart),
-                        label: Text("افزودن به سبد"),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // next card
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF05121C),
-                  borderRadius: BorderRadius.circular(50),
-                  boxShadow: [
-                    BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 5),
-                  ],
-                ),
-                margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image.asset(
-                          "assets/img/cyberpunk.jpg",
-                          width: 310,
-                          fit: BoxFit.cover,
-
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Center(
-                        child: Text(
-                          "Cyberpunk 2077",
-                          style: TextStyle(
-                            color: Color(0xFF81B5D3),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18,
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Center(
+                          child: Text(
+                            item.name,
+                            style: TextStyle(
+                              color: Color(0xFF81B5D3),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                      child: Text("بازی سایبرپانک ۲۰۷۷ در یک ابر شهر واقع در ایالات کارولینای شمالی دنبال می‌شود که توسط کمپانی‌های بزرگ اداره می‌شود اما قوانین حکومتی هم هنوز به طرز ضعیف‌تری بر مردم واقع است. اختلاف طبقاتی کاری کرده تا مردم شهر در قسمت‌های مختلف جا بگیرند که هرکدام ویژگی‌ها و فرهنگ خاص خودشان رادارند. بخشی از شهر با برج‌های چند صد طبقه پرشده که مردمانی ثروتمند با کت‌وشلوارهای شیک و ماشین‌های گران‌قیمت در آن‌ها زندگی می‌کنند. اما تمامی قسمت‌های شهر به این شکل نیست و انواع گروه‌های تبه‌کاران در قسمت‌های مختلف دیده می‌شوند که هرکدام با دیگری در جنگ و جدال عجیبی هستند. قشر فقیر زیادی در شهر زندگی می‌کنند که باعث افزایش میزان خشونت و تهدیدهای جدی از سوی گروه‌های خلاف‌کار شده است. اما شما از کجا وارد می‌شوید؟",
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
+                      Container(
+                        margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                        child: Text(item.description,
+                          textAlign: TextAlign.right,
+                            textDirection: TextDirection.rtl,
+                          style: TextStyle(
                             color: Color(0xFFF5F9FB),
                             fontWeight: FontWeight.w300,
                             fontSize: 12,
                             height: 2.5
 
-                        ),),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Center(
-                        child: Text(
-                          "4,800,000 تومان",
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Color(0xFF00FF42)),
+                          ),),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Center(
+                          child: Text(
+                            formatNumber(item.price) + " تومان",
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(color: Color(0xFF00FF42)),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF0C2D48),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF0C2D48),
+                          ),
+                          onPressed: () {
+                          // Add to Bascket
+                            addProductToCard(prdc: item);
+                            // show
+                            print(orders);
+                            for (var item in orders){
+                              print("Name: ${item.name}, Pic Path: ${item.picPath}, Price: ${item.price}");
+                            }
+                          },
+                          icon: Icon(Icons.add_shopping_cart),
+                          label: Text("افزودن به سبد"),
                         ),
-                        onPressed: () {
-                          // افزودن به سبد خرید
-                        },
-                        icon: Icon(Icons.add_shopping_cart),
-                        label: Text("افزودن به سبد"),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),
@@ -442,14 +453,7 @@ class _ProductsPageState extends State<ProductsPage> {
       bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 1,)
 
     ),
-
-
-
-
         ),
-
-
-
     );
   }
 }
@@ -462,6 +466,15 @@ class BasketPage extends StatefulWidget {
 }
 
 class _BasketPageState extends State<BasketPage> {
+
+  double sumOfAllForBascket(List<Order> ors){
+    double sum = 0;
+    for (var item in ors){
+      sum += item.price * item.quantity;
+    }
+    return sum;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -499,6 +512,7 @@ class _BasketPageState extends State<BasketPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    for (var item in orders)
                     // first card
                     Container(
                       decoration: BoxDecoration(
@@ -511,6 +525,7 @@ class _BasketPageState extends State<BasketPage> {
                       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Row(
                         children: [
+
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: ClipRRect(
@@ -521,7 +536,9 @@ class _BasketPageState extends State<BasketPage> {
                                   bottomRight: Radius.circular(3)
                               ),
                               child: Image.asset(
-                                "assets/img/red-dead2.jpg",
+
+                                item.picPath,
+
                                 width: 100,
                                 fit: BoxFit.cover,
 
@@ -533,130 +550,46 @@ class _BasketPageState extends State<BasketPage> {
                             child: Container(
                               margin: EdgeInsets.symmetric(vertical: 10),
                               child: Column(
-
                                 children: [
-                                  Text(
-                                    "عنوان بازی:",
-                                    textAlign: TextAlign.right,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFF81B5D3),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      height: 2,
+                                    Text(
+                                      "عنوان بازی:",
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                        color: Color(0xFF81B5D3),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                        height: 2,
+                                      ),
                                     ),
-                                  ),
 
-                                  Text(
-                                    "Red Dead Redemption 2",
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFF81B5D3),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      height: 2,
+                                    Text(
+                                      item.name,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                        color: Color(0xFF81B5D3),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                        height: 2,
+                                      ),
                                     ),
-                                  ),
 
-                                  Text(
-                                    "تعداد:",
-                                    textAlign: TextAlign.right,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFFF5F9FB),
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 12,
-                                      height: 2.5,
+                                    Text(
+                                      "تعداد: " + "${item.quantity}",
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                        color: Color(0xFFF5F9FB),
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 12,
+                                        height: 2.5,
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),
                           )
-
-
-                        ],
-                      ),
-                    ),
-
-                    // next card
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF05121C),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 2),
-                        ],
-                      ),
-                      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                  topRight: Radius.circular(3),
-                                  bottomRight: Radius.circular(3)
-                              ),
-                              child: Image.asset(
-                                "assets/img/cyberpunk.jpg",
-                                width: 100,
-                                fit: BoxFit.cover,
-
-                              ),
-                            ),
-                          ),
-
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child: Column(
-
-                                children: [
-                                  Text(
-                                    "عنوان بازی:",
-                                    textAlign: TextAlign.right,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFF81B5D3),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      height: 2,
-                                    ),
-                                  ),
-
-                                  Text(
-                                    "Cyberpunk 2077",
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFF81B5D3),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      height: 2,
-                                    ),
-                                  ),
-
-                                  Text(
-                                    "تعداد:",
-                                    textAlign: TextAlign.right,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFFF5F9FB),
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 12,
-                                      height: 2.5,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-
-
                         ],
                       ),
                     ),
@@ -669,7 +602,7 @@ class _BasketPageState extends State<BasketPage> {
                           BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 2),
                         ],
                       ),
-                      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                      margin: EdgeInsets.fromLTRB(30, 50, 30, 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -691,7 +624,7 @@ class _BasketPageState extends State<BasketPage> {
                                   ),
 
                                   Text(
-                                    "10,000,000 تومان",
+                                   "${formatNumber(sumOfAllForBascket(orders).toInt())}" + " تومان" ,
                                     textAlign: TextAlign.center,
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
@@ -721,14 +654,7 @@ class _BasketPageState extends State<BasketPage> {
             bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 2,)
 
         ),
-
-
-
-
       ),
-
-
-
     );
   }
 }
