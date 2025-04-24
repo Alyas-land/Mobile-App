@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/staticWidgets/navigationBottom.dart';
 
-
-
 void main() {
   runApp(const MaterialApp(title: 'Navigation Basics', home: MyShop()));
 }
@@ -16,7 +14,6 @@ class Product{
   var price;
 
   Product({required this.id,required this.name, required this.description, required this.quantity,required this.price, required this.picPath});
-
 }
 
 class Order{
@@ -26,7 +23,6 @@ class Order{
   var price;
 
   Order({required this.name, required this.quantity, required this.price, required this.picPath});
-
 }
 
 final List<Product> products = [
@@ -59,6 +55,7 @@ final List<Product> products = [
       picPath: "assets/img/witcher3.jpg"),
 ];
 
+bool isLoggedIn = false;
 
 final List<Order> orders = [];
 
@@ -101,6 +98,14 @@ class _MyShopState extends State<MyShop> {
       }
 
     });
+  }
+
+  bool checkUserPassFormating(String input){
+    final regex = RegExp(r"^[a-zA-Z0-9]{4,}$");
+    if (regex.hasMatch(input)){
+      return true;
+    }
+    return false;
   }
   @override
   Widget build(BuildContext context) {
@@ -251,16 +256,17 @@ class _MyShopState extends State<MyShop> {
                       onPressed: (){
                         setState(() {
                           errorUsername = null;
-                          if (username.text.length < 3){
-                            errorUsername = "فرمت نام کاربری درست نمی باشد";
+                          if (!checkUserPassFormating(username.text)){
+                            errorUsername = "فرمت نام کاربری صحیح نمی باشد.";
                           }
 
                           errorPassword = null;
-                          if (password.text.length < 4){
-                            errorPassword = "رمز عبور باید بیشتر از 4 کاراکتر باشد.";
+                          if (!checkUserPassFormating(password.text)){
+                            errorPassword = "فرمت رمز عبور صحیح نمی باشد.";
                           }
 
                           else if (username.text == "admin" && password.text == "12345"){
+                            isLoggedIn = true;
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => ProductsPage()),
@@ -371,7 +377,8 @@ class _ProductsPageState extends State<ProductsPage> {
         backgroundColor: Color(0xFF0C2D48),
         ),
 
-      body: Container(
+      body: isLoggedIn
+      ?Container(
         padding: EdgeInsets.all(8),
         child: SingleChildScrollView(
           child: Column(
@@ -462,7 +469,14 @@ class _ProductsPageState extends State<ProductsPage> {
             ],
           ),
         ),
+      )
+      :Center(
+    child: Text(
+    "برای مشاهده محصولات باید وارد شوید.",
+        textDirection: TextDirection.rtl,
+        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
+    ),
 
       bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 1,)
 
@@ -521,7 +535,7 @@ class _BasketPageState extends State<BasketPage> {
               backgroundColor: Color(0xFF0C2D48),
             ),
 
-            body: Container(
+            body: isLoggedIn ?Container(
               padding: EdgeInsets.all(8),
               child: SingleChildScrollView(
                 child: Column(
@@ -663,7 +677,14 @@ class _BasketPageState extends State<BasketPage> {
                   ],
                 ),
               ),
-            ),
+            )
+            :Center(
+          child: Text(
+          "برای مشاهده محصولات باید وارد شوید.",
+          textDirection: TextDirection.rtl,
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
 
             bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 2,)
 
