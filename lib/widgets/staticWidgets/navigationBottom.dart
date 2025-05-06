@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:practice2/main.dart';
+import '../../screen/login.dart';
+import '../../screen/infoAccount.dart';
+import '../../session/sessionStatus.dart';
+
+
 
 
 class MyNavigationBottomBar extends StatefulWidget {
@@ -26,10 +31,22 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
 
     if (index == 0){
       _selectedIndex = 0;
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MyShop())
-      );
+      if (globalUserId != null){
+        print('if ');
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => InfoAcountPage(userId: globalUserId))
+        );
+      }
+      else {
+        print('else');
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage())
+        );
+      }
+
     }
 
     if (index == 1){
@@ -55,7 +72,7 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
       selectedItemColor: Colors.white,
       unselectedItemColor: Color(0xFF7F7F7F),
       items:[
-        BottomNavigationBarItem(icon: Icon(Icons.login_sharp,), label: "حساب کاربری"),
+        BottomNavigationBarItem(icon: Icon(Icons.account_box,), label: "حساب کاربری"),
         BottomNavigationBarItem(icon: Icon(Icons.home_filled,), label: "خانه"),
         BottomNavigationBarItem(icon: Icon(Icons.shopping_bag,), label: "سبد"),
         // BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: "Acount"),
