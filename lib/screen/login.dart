@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:practice2/session/sessionStatus.dart';
 import '../screen/infoAccount.dart';
+import '../screen/register.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> loginUser(String username, String password, BuildContext context) async{
     final response = await http.post(
-        Uri.parse('http://192.168.6.91:5000/api/user/login'),
+        Uri.parse('http://192.168.139.91:5000/api/user/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,
@@ -283,6 +284,22 @@ class _LoginPageState extends State<LoginPage> {
                         loginUser(username.text, password.text, context);
                       }),
                 ),
+
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(50, 20, 50, 1),
+                  child: MaterialButton(
+
+                      child: Text("حساب کاربری ندارید؟ ثبت نام",
+                        style: TextStyle(color: Colors.red),),
+
+                      onPressed: (){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (builder) => RegisterPage()));
+                        loginUser(username.text, password.text, context);
+                      }),
+                ),
+
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 50, 0, 50),
                   child: Center(child: Text(result,
