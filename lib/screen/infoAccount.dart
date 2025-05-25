@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:practice2/screen/login.dart';
 import 'package:practice2/session/sessionStatus.dart';
+import '../widgets/staticWidgets/drawerMenu.dart';
 import '../widgets/staticWidgets/navigationBottom.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../serverConfiguration/serverAddress.dart';
+import '../screen/card.dart';
+import '../screen/aboutUs.dart';
+import '../globalVariables/init.dart';
 
 
 
@@ -25,14 +30,15 @@ class _InfoAcountPageState extends State<InfoAcountPage> {
   @override
   void initState(){
     super.initState();
-    getInfo(widget.userId);
+    getInfo(globalUserId);
   }
 
   Future<void> getInfo(id) async{
     final response = await http.get(
-      Uri.parse('http://192.168.6.91:5000/api/user/info/$id'),
+      Uri.parse('$server/api/user/info/$id'),
       headers: {'Content-Type': 'application/json'},
     );
+    print('in future');
 
     Map<String, dynamic> data = jsonDecode(response.body);
 
@@ -96,28 +102,48 @@ class _InfoAcountPageState extends State<InfoAcountPage> {
                   center: Alignment(0, 0), // near the top right
                   radius: 0.8,
                   colors: <Color>[
-                    Color(0xFF145DA0), //  sun
-                    Color(0xFF0C2D48), //  sky
+                    Color(0xFF1E295E), //  sun
+                    Color(0xFF0A0E21), //  sky
                   ],
                 )
             ),
 
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              appBar: AppBar(title: Text("حساب کاربری",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                  ),
-              ),
+              appBar: AppBar(title: Image.asset(
+                'assets/img/new-logo-blue-edited-appbar.png',
+                width: 90,),
+
+                // Center
+                //   (child: Text("هکس آرنا",
+                //   style: TextStyle(
+                //       color: Colors.white,
+                //       fontSize: 30,
+                //       fontWeight: FontWeight.bold
+                //   ),
+                // ),
+                automaticallyImplyLeading: false,
                 centerTitle: true,
-                backgroundColor: Color(0xFF0C2D48),
-                leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.notifications, color: Colors.white),
-                ),
+                backgroundColor: Color(0xFF0A0E21),
+                actions: [
+                  Builder(
+                    builder: (context) => IconButton(
+                      icon: Icon(
+                          Icons.menu,
+                        color: Colors.white,
+
+                      ),
+                      onPressed: () {
+                        Scaffold.of(context).openEndDrawer();
+                      },
+                    ),
+                  ),
+                ],
               ),
+
+              endDrawer: MyDrawerMenu(),
+
+
               body: Container(
                 padding: EdgeInsets.all(8),
                 child: SingleChildScrollView(
@@ -211,8 +237,26 @@ class _InfoAcountPageState extends State<InfoAcountPage> {
                                 onPressed: () {
                                   setState(() {
                                     globalUserId = null;
-                                    Route route = MaterialPageRoute(builder: (context) => LoginPage());
-                                    Navigator.pushReplacement(context, route);
+                                    // Route route = MaterialPageRoute(builder: (context) => LoginPage());
+                                    Navigator.pushReplacement(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                          final curvedAnimation = CurvedAnimation(
+                                            parent: animation,
+                                            curve: Curves.easeInOut,
+                                          );
+
+                                          return FadeTransition(
+                                            opacity: curvedAnimation,
+                                            child: child,
+                                          );
+                                        },
+                                        transitionDuration: Duration(milliseconds: 500),
+                                      ),
+                                    );
+                                    // Navigator.pushReplacement(context, route);
                                   });
                                 },
                                 icon: Icon(Icons.exit_to_app,

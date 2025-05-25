@@ -733,212 +733,212 @@ String formatNumber(int number) {
 //   }
 // }
 
-class BasketPage extends StatefulWidget {
-  const BasketPage({super.key});
-
-  @override
-  State<BasketPage> createState() => _BasketPageState();
-}
-
-class _BasketPageState extends State<BasketPage> {
-
-  double sumOfAllForBascket(List<Order> ors){
-    double sum = 0;
-    for (var item in ors){
-      sum += item.price * item.quantity;
-    }
-    return sum;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          fontFamily: "Irancell"
-      ),
-      home: Container(
-        decoration: BoxDecoration(
-            gradient: RadialGradient(
-              center: Alignment(0, 0), // near the top right
-              radius: 0.8,
-              colors: <Color>[
-                Color(0xFF145DA0), //  sun
-                Color(0xFF0C2D48), //  sky
-              ],
-            )
-        ),
-
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(title: Center
-              (child: Text("سبد خرید",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            ),
-              backgroundColor: Color(0xFF0C2D48),
-            ),
-
-            body: globalUserId != null ?Container(
-              padding: EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    for (var item in orders)
-                    // first card
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF05121C),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 2),
-                        ],
-                      ),
-                      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      child: Row(
-                        children: [
-
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                  topRight: Radius.circular(3),
-                                  bottomRight: Radius.circular(3)
-                              ),
-                              child: Image.asset(
-
-                                item.picPath,
-
-                                width: 100,
-                                fit: BoxFit.cover,
-
-                              ),
-                            ),
-                          ),
-
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child: Column(
-                                children: [
-                                    Text(
-                                      "عنوان بازی:",
-                                      textAlign: TextAlign.right,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                        color: Color(0xFF81B5D3),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
-                                        height: 2,
-                                      ),
-                                    ),
-
-                                    Text(
-                                      item.name,
-                                      textAlign: TextAlign.center,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                        color: Color(0xFF81B5D3),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
-                                        height: 2,
-                                      ),
-                                    ),
-
-                                    Text(
-                                      "تعداد: " + "${item.quantity}",
-                                      textAlign: TextAlign.right,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                        color: Color(0xFFF5F9FB),
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        height: 2.5,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF05121C),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 2),
-                        ],
-                      ),
-                      margin: EdgeInsets.fromLTRB(30, 50, 30, 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child: Column(
-
-                                children: [
-                                  Text(
-                                    "مبلغ قایل پرداخت:",
-                                    textAlign: TextAlign.right,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFFFE6A48),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      height: 2,
-                                    ),
-                                  ),
-
-                                  Text(
-                                   "${formatNumber(sumOfAllForBascket(orders).toInt())}" + " تومان" ,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Color(0xFF13FF00),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      height: 2,
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          )
-
-
-                        ],
-                      ),
-                    ),
-
-
-                  ],
-                ),
-              ),
-            )
-            :Center(
-          child: Text(
-          "برای مشاهده محصولات باید وارد شوید.",
-          textDirection: TextDirection.rtl,
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      ),
-
-            bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 2,)
-
-        ),
-      ),
-    );
-  }
-}
-
+// class BasketPage extends StatefulWidget {
+//   const BasketPage({super.key});
+//
+//   @override
+//   State<BasketPage> createState() => _BasketPageState();
+// }
+//
+// class _BasketPageState extends State<BasketPage> {
+//
+//   double sumOfAllForBascket(List<Order> ors){
+//     double sum = 0;
+//     for (var item in ors){
+//       sum += item.price * item.quantity;
+//     }
+//     return sum;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(
+//           fontFamily: "Irancell"
+//       ),
+//       home: Container(
+//         decoration: BoxDecoration(
+//             gradient: RadialGradient(
+//               center: Alignment(0, 0), // near the top right
+//               radius: 0.8,
+//               colors: <Color>[
+//                 Color(0xFF145DA0), //  sun
+//                 Color(0xFF0C2D48), //  sky
+//               ],
+//             )
+//         ),
+//
+//         child: Scaffold(
+//             backgroundColor: Colors.transparent,
+//             appBar: AppBar(title: Center
+//               (child: Text("سبد خرید",
+//               style: TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 30,
+//                   fontWeight: FontWeight.bold
+//               ),
+//             ),
+//             ),
+//               backgroundColor: Color(0xFF0C2D48),
+//             ),
+//
+//             body: globalUserId != null ?Container(
+//               padding: EdgeInsets.all(8),
+//               child: SingleChildScrollView(
+//                 child: Column(
+//                   children: [
+//                     for (var item in orders)
+//                     // first card
+//                     Container(
+//                       decoration: BoxDecoration(
+//                         color: Color(0xFF05121C),
+//                         borderRadius: BorderRadius.circular(10),
+//                         boxShadow: [
+//                           BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 2),
+//                         ],
+//                       ),
+//                       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+//                       child: Row(
+//                         children: [
+//
+//                           Container(
+//                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+//                             child: ClipRRect(
+//                               borderRadius: BorderRadius.only(
+//                                   topLeft: Radius.circular(10),
+//                                   bottomLeft: Radius.circular(10),
+//                                   topRight: Radius.circular(3),
+//                                   bottomRight: Radius.circular(3)
+//                               ),
+//                               child: Image.asset(
+//
+//                                 item.picPath,
+//
+//                                 width: 100,
+//                                 fit: BoxFit.cover,
+//
+//                               ),
+//                             ),
+//                           ),
+//
+//                           Expanded(
+//                             child: Container(
+//                               margin: EdgeInsets.symmetric(vertical: 10),
+//                               child: Column(
+//                                 children: [
+//                                     Text(
+//                                       "عنوان بازی:",
+//                                       textAlign: TextAlign.right,
+//                                       textDirection: TextDirection.rtl,
+//                                       style: TextStyle(
+//                                         color: Color(0xFF81B5D3),
+//                                         fontWeight: FontWeight.w700,
+//                                         fontSize: 14,
+//                                         height: 2,
+//                                       ),
+//                                     ),
+//
+//                                     Text(
+//                                       item.name,
+//                                       textAlign: TextAlign.center,
+//                                       textDirection: TextDirection.rtl,
+//                                       style: TextStyle(
+//                                         color: Color(0xFF81B5D3),
+//                                         fontWeight: FontWeight.w700,
+//                                         fontSize: 14,
+//                                         height: 2,
+//                                       ),
+//                                     ),
+//
+//                                     Text(
+//                                       "تعداد: " + "${item.quantity}",
+//                                       textAlign: TextAlign.right,
+//                                       textDirection: TextDirection.rtl,
+//                                       style: TextStyle(
+//                                         color: Color(0xFFF5F9FB),
+//                                         fontWeight: FontWeight.w300,
+//                                         fontSize: 12,
+//                                         height: 2.5,
+//                                       ),
+//                                     ),
+//                                 ],
+//                               ),
+//                             ),
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//
+//                     Container(
+//                       decoration: BoxDecoration(
+//                         color: Color(0xFF05121C),
+//                         borderRadius: BorderRadius.circular(10),
+//                         boxShadow: [
+//                           BoxShadow(color: Color(0xFF2E8ABF), blurRadius: 2),
+//                         ],
+//                       ),
+//                       margin: EdgeInsets.fromLTRB(30, 50, 30, 10),
+//                       child: Row(
+//                         children: [
+//                           Expanded(
+//                             child: Container(
+//                               margin: EdgeInsets.symmetric(vertical: 10),
+//                               child: Column(
+//
+//                                 children: [
+//                                   Text(
+//                                     "مبلغ قایل پرداخت:",
+//                                     textAlign: TextAlign.right,
+//                                     textDirection: TextDirection.rtl,
+//                                     style: TextStyle(
+//                                       color: Color(0xFFFE6A48),
+//                                       fontWeight: FontWeight.w700,
+//                                       fontSize: 14,
+//                                       height: 2,
+//                                     ),
+//                                   ),
+//
+//                                   Text(
+//                                    "${formatNumber(sumOfAllForBascket(orders).toInt())}" + " تومان" ,
+//                                     textAlign: TextAlign.center,
+//                                     textDirection: TextDirection.rtl,
+//                                     style: TextStyle(
+//                                       color: Color(0xFF13FF00),
+//                                       fontWeight: FontWeight.w700,
+//                                       fontSize: 14,
+//                                       height: 2,
+//                                     ),
+//                                   ),
+//
+//                                 ],
+//                               ),
+//                             ),
+//                           )
+//
+//
+//                         ],
+//                       ),
+//                     ),
+//
+//
+//                   ],
+//                 ),
+//               ),
+//             )
+//             :Center(
+//           child: Text(
+//           "برای مشاهده محصولات باید وارد شوید.",
+//           textDirection: TextDirection.rtl,
+//           style: TextStyle(color: Colors.white, fontSize: 18),
+//         ),
+//       ),
+//
+//             bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 2,)
+//
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
 

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:practice2/screen/category.dart';
+import 'package:practice2/serverConfiguration/serverAddress.dart';
+import '../widgets/staticWidgets/drawerMenu.dart';
 import '../widgets/staticWidgets/navigationBottom.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../session/sessionStatus.dart';
+import 'package:another_flushbar/flushbar.dart';
+import '../widgets/staticWidgets/floatingActionButton.dart';
+
+
+
 
 class Product{
   int id;
@@ -25,7 +34,9 @@ class Product{
 
 }
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key});
+  final int? categoryId;
+
+  const ProductsPage({super.key, this.categoryId});
 
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -33,9 +44,10 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
 
+  // Fetch products data from Backend
   Future<List<Product>> fetchProducts() async{
     final response = await http.get(
-      Uri.parse('http://192.168.139.91:5000/api/user/products'),
+      Uri.parse('$server/api/user/products/category/${widget.categoryId}'),
       // headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200){
@@ -47,6 +59,74 @@ class _ProductsPageState extends State<ProductsPage> {
       throw Exception('خطا در دریافت مخصولات');
     }
   }
+  // End fetch products data from Backend
+
+
+  // Add product to card
+  Future<void> addProductToCard(productId) async {
+    final response = await http.post(
+      Uri.parse('$server//api/user/products/add_to_card'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      body: jsonEncode(
+        {
+          'user_id': globalUserId,
+          'product_id': productId,
+        }
+      )
+    );
+
+    if (response.statusCode == 200){
+      Flushbar(
+        titleText: Text('*عملیات موفق*',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.green,
+        messageText: Text('کالا با موفقیت اضافه شد',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        margin: EdgeInsets.all(15),
+        borderRadius: BorderRadius.circular(10),
+        duration: Duration(seconds: 5),
+        flushbarPosition: FlushbarPosition.TOP,
+
+      ).show(context);
+    }
+    else {
+      Flushbar(
+        titleText: Text('*عملیات ناموفق*',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        messageText: Text('کالا به سبد خرید اضافه نشد',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        margin: EdgeInsets.all(15),
+        borderRadius: BorderRadius.circular(10),
+        duration: Duration(seconds: 5),
+        flushbarPosition: FlushbarPosition.TOP,
+        backgroundColor: Colors.red,
+
+      ).show(context);
+    }
+  }
+  // End add product to card
 
   String formatNumber(int number) {
     final str = number.toString();
@@ -105,25 +185,80 @@ class _ProductsPageState extends State<ProductsPage> {
               center: Alignment(0, 0), // near the top right
               radius: 0.8,
               colors: <Color>[
-                Color(0xFF145DA0), //  sun
-                Color(0xFF0C2D48), //  sky
+                Color(0xFF1E295E), //  sun
+                Color(0xFF0A0E21), //  sky
               ],
-            )
+            ),
         ),
 
         child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: AppBar(title: Center
-              (child: Text("محصولات",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
+            appBar: AppBar(title: Image.asset(
+              'assets/img/new-logo-blue-edited-appbar.png',
+              width: 90,),
+
+          // Center
+          //   (child: Text("هکس آرنا",
+          //   style: TextStyle(
+          //       color: Colors.white,
+          //       fontSize: 30,
+          //       fontWeight: FontWeight.bold
+          //   ),
+          // ),
+              automaticallyImplyLeading: false,
+              backgroundColor: Color(0xFF0A0E21),
+              centerTitle: true,
+
+              actions: [
+                Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                  ),
+                ),
+              ],
+              leading: IconButton(
+                icon: Icon(
+                  LineAwesomeIcons.chevron_circle_left,
+                  color: Color(0xFF5CE1E6),
+                ),
+                tooltip: 'Open shopping cart',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (context, animation, secondaryAnimation) =>
+                          CategoryPage(),
+                      transitionsBuilder: (
+                          context,
+                          animation,
+                          secondaryAnimation,
+                          child,
+                          ) {
+                        final curvedAnimation = CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeInOut,
+                        );
+                        return FadeTransition(
+                          opacity: curvedAnimation,
+                          child: child,
+                        );
+                      },
+                      transitionDuration: Duration(milliseconds: 1000),
+                    ),
+                  );
+                },
               ),
             ),
-            ),
-              backgroundColor: Color(0xFF0C2D48),
-            ),
+
+            endDrawer: MyDrawerMenu(),
 
             body: globalUserId != null
                 ?Container(
@@ -149,9 +284,25 @@ class _ProductsPageState extends State<ProductsPage> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(40),
                                 child: Image.network(
-                                  'http://192.168.139.91:5000${item.imgPath}',
+                                  '$server/${item.imgPath}',
                                   width: 310,
                                   fit: BoxFit.cover,
+                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null)
+                                      return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+                                    );
+                                  },
 
                                 ),
                               ),
@@ -221,9 +372,14 @@ class _ProductsPageState extends State<ProductsPage> {
                                   // for (var item in orders){
                                   //   print("Name: ${item.name}, Pic Path: ${item.picPath}, Price: ${item.price}");
                                   // }
+                                  addProductToCard(item.id);
                                 },
-                                icon: Icon(Icons.add_shopping_cart),
-                                label: Text("افزودن به سبد"),
+                                icon: Icon(Icons.add_shopping_cart,
+                                color: Colors.blue,),
+                                label: Text("افزودن به سبد",
+                                style: TextStyle(
+                                  color: Colors.blue
+                                ),),
                               ),
                             ),
                           ],
@@ -241,7 +397,9 @@ class _ProductsPageState extends State<ProductsPage> {
               ),
             ),
 
-            bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 1,)
+            bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 1,),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: MyFloatingActionButton()
 
         ),
       ),

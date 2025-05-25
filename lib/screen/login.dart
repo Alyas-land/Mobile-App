@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import '../widgets/staticWidgets/navigationBottom.dart';
 import 'package:http/http.dart' as http;
+import 'package:practice2/screen/profile.dart';
+import 'package:practice2/screen/registerWithProfile.dart';
 import 'dart:convert';
 import 'package:practice2/session/sessionStatus.dart';
 import '../screen/infoAccount.dart';
-import '../screen/register.dart';
+import '../serverConfiguration/serverAddress.dart';
+import '../widgets/staticWidgets/floatingActionButton.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -32,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> loginUser(String username, String password, BuildContext context) async{
     final response = await http.post(
-        Uri.parse('http://192.168.139.91:5000/api/user/login'),
+        Uri.parse('$server/api/user/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,
@@ -52,10 +55,28 @@ class _LoginPageState extends State<LoginPage> {
 
     // final resultData = jsonDecode(response.body);
     if (response.statusCode == 200){
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => InfoAcountPage(userId: globalUserId)),
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(userId: globalUserId),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final curvedAnimation = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOut,
+            );
+
+            return FadeTransition(
+              opacity: curvedAnimation,
+              child: child,
+            );
+          },
+          transitionDuration: Duration(milliseconds: 1000),
+        ),
       );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => InfoAcountPage(userId: globalUserId)),
+      // );
     } else if (response.statusCode == 400) {
       print('&&&&&&&&&&&&&&& Status code: ${response.statusCode} &&&&&&&&&&&&&&&');
 
@@ -119,24 +140,24 @@ class _LoginPageState extends State<LoginPage> {
               center: Alignment(0, 0), // near the top right
               radius: 0.8,
               colors: <Color>[
-                Color(0xFF145DA0), //  sun
-                Color(0xFF0C2D48), //  sky
+                Color(0xFF263375), //  sun
+                Color(0xFF0A0E21), //  sky
               ],
             )
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(title: Center
-            (child: Text("هکس آرنا",
+          appBar: AppBar(title: Text("ورود به حساب",
             style: TextStyle(
                 color: Colors.white,
-                fontSize: 30,
+                fontSize: 18,
                 fontWeight: FontWeight.bold
             ),
           ),
-          ),
-            backgroundColor: Color(0xFF0C2D48),
-          ),
+            centerTitle: true,
+            backgroundColor: Color(0xFF0A0E21),),
+
+
 
           body: Container(
 
@@ -146,20 +167,20 @@ class _LoginPageState extends State<LoginPage> {
                   margin: EdgeInsets.fromLTRB(0, 30, 0, 10),
                   child: Column(
                       children: [
-                        Image(image: AssetImage('assets/img/game-vector.png'),
+                        Image(image: AssetImage('assets/img/new-logo-blue.png'),
                           width: 300,
                           height: 150,
                         ),
 
-                        Center(
-                          child: Text("ورود به حساب کاربری",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFFFFFF),
-                            ),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Text("ورود به حساب کاربری",
+                        //     style: TextStyle(
+                        //       fontSize: 20,
+                        //       fontWeight: FontWeight.bold,
+                        //       color: Color(0xFFFFFFFF),
+                        //     ),
+                        //   ),
+                        // ),
                       ]
                   ),
                 ),
@@ -168,6 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextField(
 
                     textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xFFCFF4FC)),
                     controller: username,
                     decoration: InputDecoration(
                       errorText: errorUsername,
@@ -207,6 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextField(
                     textAlign: TextAlign.center,
                     controller: password,
+                    style: TextStyle(color: Color(0xFFCFF4FC)),
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "رمز عبور",
@@ -244,13 +267,15 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(50, 20, 50, 1),
                   child: MaterialButton(
-                      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50))
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          side: BorderSide(width: 2,
+                            color: Color(0xFF70BFFF),)
                       ),
-                      color: Color(0xFF0C2D48),
-                      child: Text("ارسال",
-                        style: TextStyle(color: Colors.white),),
+                      color: Color(0xFF164A74),
+                      child: Text("ورود",
+                        style: TextStyle(color: Color(0xFFD3FFDD)),),
 
                       onPressed: (){
                         // setState(() {
@@ -291,12 +316,31 @@ class _LoginPageState extends State<LoginPage> {
                   child: MaterialButton(
 
                       child: Text("حساب کاربری ندارید؟ ثبت نام",
-                        style: TextStyle(color: Colors.red),),
+                        style: TextStyle(
+                            color: Color(0xFF5CE1E6),
+                        ),),
 
                       onPressed: (){
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => RegisterPage()));
-                        loginUser(username.text, password.text, context);
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) => RegisterPageWithProfile(),
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              final curvedAnimation = CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeInOut,
+                              );
+
+                              return FadeTransition(
+                                opacity: curvedAnimation,
+                                child: child,
+                              );
+                            },
+                            transitionDuration: Duration(milliseconds: 1000),
+                          ),
+                        );
+                        // Navigator.push(context,
+                        //   MaterialPageRoute(builder: (builder) => RegisterPage()));
                       }),
                 ),
 
@@ -314,7 +358,9 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 0,),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: MyFloatingActionButton()
+          // bottomNavigationBar: MyNavigationBottomBar(InitializeIndex: 0,),
         ),
       ),
     );
