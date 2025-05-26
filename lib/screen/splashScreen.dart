@@ -18,7 +18,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -63,7 +63,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                Lottie.asset('assets/animation/animation.json', width: 250),
+                Lottie.asset('assets/animation/animation-2.json', width: 250),
                 SizedBox(height: 20),
                 DefaultTextStyle(
                   style: const TextStyle(
@@ -75,11 +75,11 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
                     animatedTexts: [
                       TypewriterAnimatedText(
                         'Hex Arena Gaming',
-                        speed: Duration(milliseconds: 150),
+                        speed: Duration(milliseconds: 100),
                       ),
                     ],
                     totalRepeatCount: 1,
-                    pause: Duration(milliseconds: 3000),
+                    pause: Duration(milliseconds: 700),
                     displayFullTextOnTap: true,
                     stopPauseOnTap: true,
                   ),

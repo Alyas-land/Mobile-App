@@ -119,22 +119,18 @@ class _MyDrawerMenuState extends State<MyDrawerMenu> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network('$server/$profilePitcture',
-                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null)
-                                return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                              return Center(
-                                child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
-                              );
-                            },
+                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null)
+                                  return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              },
+
                           ),
                         ),
                       ),

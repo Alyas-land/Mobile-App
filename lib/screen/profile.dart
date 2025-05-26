@@ -169,11 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       );
                     },
-                    errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                      return Center(
-                        child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
-                      );
-                    },
+
                   )
                   ,
                 ),

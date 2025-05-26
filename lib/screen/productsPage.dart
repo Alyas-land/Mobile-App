@@ -45,18 +45,23 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
 
   // Fetch products data from Backend
-  Future<List<Product>> fetchProducts() async{
-    final response = await http.get(
-      Uri.parse('$server/api/user/products/category/${widget.categoryId}'),
-      // headers: {'Content-Type': 'application/json'},
-    );
-    if (response.statusCode == 200){
-      print('in if');
-      final List<dynamic> jsonData = jsonDecode(response.body);
-      return jsonData.map((item) => Product.fromJson(item)).toList();
-    }
-    else {
-      throw Exception('خطا در دریافت مخصولات');
+  Future<List<Product>> fetchProducts() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$server/api/user/products/category/${widget.categoryId}'),
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = jsonDecode(response.body);
+        return jsonData.map((item) => Product.fromJson(item)).toList();
+      } else {
+        // نمایش خطای سمت سرور با جزئیات
+        throw Exception(
+            'خطای سرور (${response.statusCode}): ${response.body}');
+      }
+    } catch (e, stackTrace) {
+      // نمایش هر خطای دیگر (مثلاً خطای شبکه، پارس کردن JSON و...)
+      throw Exception('خطا در دریافت محصولات: $e\n$stackTrace');
     }
   }
   // End fetch products data from Backend
@@ -298,11 +303,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                       ),
                                     );
                                   },
-                                  errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                                    return Center(
-                                      child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
-                                    );
-                                  },
+
 
                                 ),
                               ),

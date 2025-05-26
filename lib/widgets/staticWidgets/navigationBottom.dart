@@ -54,7 +54,7 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
         Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+            pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               final curvedAnimation = CurvedAnimation(
                 parent: animation,
