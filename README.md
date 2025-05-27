@@ -3,7 +3,7 @@
 
 This is a basic Flutter application developed as a practice project.  
 The app is designed to function as an online store for console video games.
-![Alt text](animation.gif)
+![Alyas Banner](animation.gif)
 ## 📱 About the Project
 
 This project is intended for learning and practice purposes. It's a simple front-end mobile application built using **Flutter**, and it is planned to be connected to a backend service in the future.
