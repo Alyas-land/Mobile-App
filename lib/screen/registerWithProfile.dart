@@ -145,7 +145,8 @@ class _RegisterPageWithProfile extends State<RegisterPageWithProfile> {
     required username,
     required password,
   }) {
-    final nameRegex = RegExp(r"^[آ-یA-Za-z]{3,}(?: [آ-یA-Za-z]+)*$");
+    final nameRegex = RegExp(r"^[\u0600-\u06FFa-zA-Z\s]+$");
+    // final nameRegex = RegExp(r"^[آ-یA-Za-z]{3,}(?: [آ-یA-Za-z]+)*$");
     final phoneNumberRegex = RegExp(r"^09\d{9}$");
     final emailRegex = RegExp(
       r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
