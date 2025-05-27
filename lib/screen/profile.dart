@@ -213,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: child,
                         );
                       },
-                      transitionDuration: Duration(milliseconds: 1000),
+                      transitionDuration: Duration(milliseconds: 400),
                     ),
                   );
 
@@ -310,7 +310,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: child,
                               );
                             },
-                            transitionDuration: Duration(milliseconds: 1000),
+                            transitionDuration: Duration(milliseconds: 400),
                           ),
                         );
                       },
@@ -407,7 +407,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: child,
                               );
                             },
-                            transitionDuration: Duration(milliseconds: 1000),
+                            transitionDuration: Duration(milliseconds: 400),
                           ),
                         );
                       },

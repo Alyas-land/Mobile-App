@@ -1,1 +1,1 @@
-String? server = 'https://isfproject.ir/';
+String? server = 'https://isfproject.ir';

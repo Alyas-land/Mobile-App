@@ -1,23 +1,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.premission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
 
     <application
-        android:label="practice2"
+        android:label="Hex Arena"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        android:usesCleartextTraffic="false"android:networkSecurityConfig="@xml/network_security_config"
         <activity
             android:name=".MainActivity"
+            android:label="Hex Arena"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize"
-            android:usesCleartextTraffic="false">
+            android:windowSoftInputMode="adjustResize">
+
+
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues

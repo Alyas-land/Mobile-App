@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               child: child,
             );
           },
-          transitionDuration: Duration(milliseconds: 1000),
+          transitionDuration: Duration(milliseconds: 400),
         ),
       );
       // Navigator.push(
@@ -336,7 +336,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: child,
                               );
                             },
-                            transitionDuration: Duration(milliseconds: 1000),
+                            transitionDuration: Duration(milliseconds: 400),
                           ),
                         );
                         // Navigator.push(context,

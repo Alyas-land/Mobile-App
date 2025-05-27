@@ -187,7 +187,7 @@ class _MyDrawerMenuState extends State<MyDrawerMenu> {
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 400),
                   ),
                 );
               },
@@ -230,7 +230,7 @@ class _MyDrawerMenuState extends State<MyDrawerMenu> {
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 400),
                   ),
                 );
               },
@@ -271,7 +271,7 @@ class _MyDrawerMenuState extends State<MyDrawerMenu> {
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 400),
                   ),
                 );
               },
@@ -314,7 +314,7 @@ class _MyDrawerMenuState extends State<MyDrawerMenu> {
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 400),
                   ),
                 );
               },

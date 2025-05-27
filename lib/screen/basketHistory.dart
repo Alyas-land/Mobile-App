@@ -66,7 +66,7 @@ class _CardsHistoryState extends State<CardsHistory> {
         );
         return FadeTransition(opacity: curvedAnimation, child: child);
       },
-      transitionDuration: Duration(milliseconds: 1000),
+      transitionDuration: Duration(milliseconds: 400),
     );
   }
 
@@ -142,7 +142,7 @@ class _CardsHistoryState extends State<CardsHistory> {
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 400),
                   ),
                 );
               },

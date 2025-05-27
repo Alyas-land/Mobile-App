@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:practice2/screen/profile.dart';
 import 'dart:convert';
 import '../session/sessionStatus.dart';
 import '../screen/infoAccount.dart';
@@ -70,7 +71,7 @@ class _RegisterPage extends State<RegisterPage> {
       Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => InfoAcountPage(userId: globalUserId),
+          pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(userId: globalUserId),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             final curvedAnimation = CurvedAnimation(
               parent: animation,
@@ -82,7 +83,7 @@ class _RegisterPage extends State<RegisterPage> {
               child: child,
             );
           },
-          transitionDuration: Duration(milliseconds: 1500),
+          transitionDuration: Duration(milliseconds: 400),
         ),
       );
       // Navigator.pushReplacement(

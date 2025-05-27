@@ -66,7 +66,7 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
                 child: child,
               );
             },
-            transitionDuration: Duration(milliseconds: 1000),
+            transitionDuration: Duration(milliseconds: 400),
           ),
         );
         // Navigator.push(
@@ -102,7 +102,7 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
                 child: child,
               );
             },
-            transitionDuration: Duration(milliseconds: 1000),
+            transitionDuration: Duration(milliseconds: 400),
           ),
         );
 
@@ -135,7 +135,7 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
               child: child,
             );
           },
-          transitionDuration: Duration(milliseconds: 1000),
+          transitionDuration: Duration(milliseconds: 400),
         ),
       );
       // Navigator.push(
@@ -168,7 +168,7 @@ class _MyNavigationBottomBarState extends State<MyNavigationBottomBar> {
               child: child,
             );
           },
-          transitionDuration: Duration(milliseconds: 1000),
+          transitionDuration: Duration(milliseconds: 400),
         ),
       );
       // Navigator.push(

@@ -191,7 +191,7 @@ class _DisplayNotActiveBasketPage extends State<DisplayNotActiveBasketPage> {
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 400),
                   ),
                 );
               },

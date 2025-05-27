@@ -285,7 +285,7 @@ class _BasketPageState extends State<BasketPage> {
 
                     ),
                     onPressed: () {
-                      Scaffold.of(context).openEndDrawer(); // حالا درست کار می‌کنه
+                      Scaffold.of(context).openEndDrawer();
                     },
                   ),
                 ),

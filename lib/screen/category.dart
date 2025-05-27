@@ -192,7 +192,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                     child: child,
                                   );
                                 },
-                                transitionDuration: Duration(milliseconds: 1500),
+                                transitionDuration: Duration(milliseconds: 400),
                               ),
                             );
                           },

@@ -18,7 +18,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 6), () {
+    Timer(Duration(seconds: 7), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -34,7 +34,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
               child: child,
             );
           },
-          transitionDuration: Duration(milliseconds: 1000),
+          transitionDuration: Duration(milliseconds: 100),
         ),
       );
     });

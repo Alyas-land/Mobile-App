@@ -55,12 +55,12 @@ class _ProductsPageState extends State<ProductsPage> {
         final List<dynamic> jsonData = jsonDecode(response.body);
         return jsonData.map((item) => Product.fromJson(item)).toList();
       } else {
-        // نمایش خطای سمت سرور با جزئیات
+
         throw Exception(
             'خطای سرور (${response.statusCode}): ${response.body}');
       }
     } catch (e, stackTrace) {
-      // نمایش هر خطای دیگر (مثلاً خطای شبکه، پارس کردن JSON و...)
+
       throw Exception('خطا در دریافت محصولات: $e\n$stackTrace');
     }
   }
@@ -227,6 +227,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     },
                   ),
                 ),
+
               ],
               leading: IconButton(
                 icon: Icon(
@@ -256,7 +257,7 @@ class _ProductsPageState extends State<ProductsPage> {
                           child: child,
                         );
                       },
-                      transitionDuration: Duration(milliseconds: 1000),
+                      transitionDuration: Duration(milliseconds: 400),
                     ),
                   );
                 },

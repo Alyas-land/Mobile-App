@@ -130,7 +130,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: child,
             );
           },
-          transitionDuration: Duration(milliseconds: 1000),
+          transitionDuration: Duration(milliseconds: 400),
         ),
       );
     }
@@ -300,7 +300,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: child,
                         );
                       },
-                      transitionDuration: Duration(milliseconds: 1000),
+                      transitionDuration: Duration(milliseconds: 400),
                     ),
                   );
                 },
@@ -619,6 +619,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
 
                                 TextField(
+                                  obscureText: true,
                                   controller: passwordController,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(color: Color(0xFFCFF4FC)),
@@ -680,6 +681,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
 
                                 TextField(
+                                  obscureText: true,
                                   controller: confrimPasswordController,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(color: Color(0xFFCFF4FC)),
