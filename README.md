@@ -66,7 +66,8 @@ Clone and run the project locally:
 git clone https://github.com/yourusername/console-game-store.git
 cd console-game-store
 flutter pub get
-flutter run```
+flutter run
+```
 
 
 ## 🛠️ Development Standards
