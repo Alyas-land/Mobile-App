@@ -66,5 +66,37 @@ Clone and run the project locally:
 git clone https://github.com/yourusername/console-game-store.git
 cd console-game-store
 flutter pub get
-flutter run
+flutter run```
+
+
+## 🛠️ Development Standards
+
+- Follows a layered & maintainable architecture in Flutter  
+- Backend implemented with RESTful API standards  
+- Clean and modern UI based on Material Design  
+- Responsive layout and smooth user experience  
+- Live debugging connected to online backend
+
+---
+
+## 📄 License
+
+This project is open for educational and personal use.  
+Feel free to fork, explore, and contribute!
+
+---
+
+## 🤝 Contributions
+
+Pull requests are welcome. For major changes, please open an issue first  
+to discuss what you would like to change.
+
+---
+
+## 📧 Contact
+
+Developed by **Alyas Mashayekhi**  
+📍 Based in New York  
+🌐 [isfproject.ir](http://isfproject.ir)
+
 
