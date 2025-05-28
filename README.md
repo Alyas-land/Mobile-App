@@ -1,49 +1,70 @@
+# 🎮 Console Game Store (Flutter Project)
 
-# Console Game Store (Flutter Practice Project)
+[![Flutter](https://img.shields.io/badge/flutter-%2302569B.svg?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/)
+[![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev/)
+[![Backend: Flask](https://img.shields.io/badge/backend-flask-black?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Status](https://img.shields.io/badge/status-active-brightgreen?style=for-the-badge)]()
+[![Live Site](https://img.shields.io/badge/Live%20Demo-isfproject.ir-blue?style=for-the-badge)](http://isfproject.ir)
 
-This is a basic Flutter application developed as a practice project.  
-The app is designed to function as an online store for console video games.
-![Alyas Banner](readme-flutter.png)
+---
+
+> A complete mobile application for console video game shopping, developed using **Flutter** and connected to a **Flask** backend.  
+> Originally started as a practice project, it has now evolved into a fully functional and testable mobile app.
+
+![Console Game Store Banner](readme-flutter.png)
+
+---
+
 ## 📱 About the Project
 
-This project is intended for learning and practice purposes. It's a simple front-end mobile application built using **Flutter**, and it is planned to be connected to a backend service in the future.
+This app is a fully functional mobile console game store built with Flutter and powered by a RESTful **Flask** backend. It includes real-time data, user authentication, and a rich shopping experience.
 
-The backend will likely be implemented using either:
-- **Flask (Python)**
-- **PHP**
+✅ **Live Server Available:**  
+Hosted on: 🌐 [isfproject.ir](http://isfproject.ir)
 
-## 🧩 Features (Planned)
+---
 
-- Display a list of console games
-- Game detail pages
-- Shopping cart functionality
-- User authentication (future feature)
-- Backend integration for dynamic data (coming soon)
+## 🧩 Key Features
 
-## 🚧 Current Status
+- 🗂 Game categories screen  
+- 🎮 Game details page  
+- 👤 User profile page  
+- ✏️ Edit profile functionality  
+- 🧾 Purchase history  
+- 🛒 Shopping cart  
+- 🔐 Login & Signup system  
+- 💫 Splash screen with animation  
+- 🎨 Enhanced UI/UX design with transitions  
+- 🔗 Connected to live Flask REST API
 
-The project is under active development.  
-Currently, it only includes static mock data for the games. Backend integration and other features are still in progress.
+---
 
-## 🎯 Goals
+## 🎯 Project Goals
 
-- Improve Flutter skills
-- Learn how to structure a Flutter project
-- Connect a Flutter front-end to a simple backend API (Flask or PHP)
-- Practice basic UI/UX design principles
+- Improve skills in Flutter and Dart  
+- Learn clean project architecture in Flutter  
+- Build and consume RESTful API using Flask  
+- Practice animations and modern UI/UX design principles
+
+---
 
 ## 📦 Tech Stack
 
-- **Flutter** (UI)
-- **Dart** (programming language)
-- **Flask** or **PHP** (planned for backend)
+| Frontend      | Backend       | Database         |
+|---------------|---------------|------------------|
+| Flutter (Dart) | Flask (Python) | SQLite / PostgreSQL |
 
-## 🔧 Getting Started
+🔗 Domain: [isfproject.ir](http://isfproject.ir)
 
-To run this project locally:
+---
+
+## 🚀 Getting Started
+
+Clone and run the project locally:
 
 ```bash
 git clone https://github.com/yourusername/console-game-store.git
 cd console-game-store
 flutter pub get
 flutter run
+
